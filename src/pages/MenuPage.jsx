@@ -1,92 +1,87 @@
 
 import { useState } from 'react';
 import { Button } from "@/components/ui/button";
-import { Star, Clock, Filter, Search } from 'lucide-react';
+import { Star, Clock, Filter } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
 const MenuPage = () => {
   const [activeCategory, setActiveCategory] = useState('all');
-  const [searchTerm, setSearchTerm] = useState('');
+
+  const categories = [
+    { id: 'all', name: 'Tout', count: 12 },
+    { id: 'burgers', name: 'Burgers Futuristes', count: 4 },
+    { id: 'traditional', name: 'Tradition Revisitée', count: 3 },
+    { id: 'drinks', name: 'Boissons Cosmiques', count: 3 },
+    { id: 'desserts', name: 'Desserts Stellaires', count: 2 }
+  ];
 
   const menuItems = [
     {
       id: 1,
       name: "Le Cygnus X-1",
-      description: "Notre burger signature avec viande premium, sauce mystère et légumes croquants",
+      description: "Notre burger signature avec viande premium, sauce mystère et légumes croquants dans un pain artisanal",
       price: "1,850 DA",
       image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      category: "burgers",
       rating: 4.9,
-      prepTime: "12 min"
+      prepTime: "12 min",
+      category: "burgers"
     },
     {
       id: 2,
-      name: "Nectar d'Andromède",
-      description: "Boisson signature aux saveurs exotiques avec effets visuels LED",
-      price: "890 DA",
-      image: "https://images.unsplash.com/photo-1544145945-f90425340c7e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      category: "boissons",
+      name: "Couscous Quantique",
+      description: "Couscous traditionnel algérien revisité avec légumes de saison et épices secrètes, présentation futuriste",
+      price: "2,200 DA",
+      image: "https://images.unsplash.com/photo-1596040033229-a0b3b6b2b8aa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       rating: 4.8,
-      prepTime: "5 min"
+      prepTime: "18 min",
+      category: "traditional"
     },
     {
       id: 3,
-      name: "Singularité Sucrée",
-      description: "Dessert architectural aux saveurs authentiques d'Algérie",
-      price: "1,250 DA",
-      image: "https://images.unsplash.com/photo-1563805042-7684c019e1cb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      category: "desserts",
-      rating: 4.9,
-      prepTime: "8 min"
+      name: "Tajine Stellaire",
+      description: "Tajine aux saveurs authentiques d'Algérie, mijoté lentement avec des épices rares dans un tajine lumineux",
+      price: "1,980 DA",
+      image: "https://images.unsplash.com/photo-1512058564366-18510be2db19?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      rating: 4.7,
+      prepTime: "25 min",
+      category: "traditional"
     },
     {
       id: 4,
-      name: "Couscous Quantique",
-      description: "Couscous traditionnel revisité avec présentation futuriste",
-      price: "2,200 DA",
-      image: "https://images.unsplash.com/photo-1596040033229-a0b3b6b2b8aa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      category: "plats",
-      rating: 4.7,
-      prepTime: "18 min"
+      name: "Nectar d'Andromède",
+      description: "Boisson signature aux saveurs exotiques avec effets visuels LED et bulles aromatiques",
+      price: "890 DA",
+      image: "https://images.unsplash.com/photo-1544145945-f90425340c7e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      rating: 4.9,
+      prepTime: "5 min",
+      category: "drinks"
     },
     {
       id: 5,
-      name: "Tajine Stellaire",
-      description: "Tajine aux épices d'Algérie dans un cadre lumineux",
-      price: "1,980 DA",
-      image: "https://images.unsplash.com/photo-1512058564366-18510be2db19?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      category: "plats",
+      name: "Singularité Sucrée",
+      description: "Dessert architectural aux saveurs authentiques d'Algérie, présenté comme une œuvre d'art comestible",
+      price: "1,250 DA",
+      image: "https://images.unsplash.com/photo-1563805042-7684c019e1cb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       rating: 4.8,
-      prepTime: "25 min"
+      prepTime: "8 min",
+      category: "desserts"
     },
     {
       id: 6,
-      name: "Wrap Vortex",
-      description: "Wrap aux légumes frais et sauce signature dans une tortilla colorée",
-      price: "1,450 DA",
-      image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      category: "wraps",
+      name: "Burger Orbital",
+      description: "Double viande, fromage fondu, sauce spéciale et garnitures premium dans un pain aux graines",
+      price: "2,100 DA",
+      image: "https://images.unsplash.com/photo-1571091718767-18b5b1457add?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       rating: 4.6,
-      prepTime: "8 min"
+      prepTime: "14 min",
+      category: "burgers"
     }
   ];
 
-  const categories = [
-    { id: 'all', name: 'Tout', count: menuItems.length },
-    { id: 'burgers', name: 'Burgers', count: menuItems.filter(item => item.category === 'burgers').length },
-    { id: 'plats', name: 'Plats Traditionnels', count: menuItems.filter(item => item.category === 'plats').length },
-    { id: 'wraps', name: 'Wraps', count: menuItems.filter(item => item.category === 'wraps').length },
-    { id: 'boissons', name: 'Boissons', count: menuItems.filter(item => item.category === 'boissons').length },
-    { id: 'desserts', name: 'Desserts', count: menuItems.filter(item => item.category === 'desserts').length }
-  ];
-
-  const filteredItems = menuItems.filter(item => {
-    const matchesCategory = activeCategory === 'all' || item.category === activeCategory;
-    const matchesSearch = item.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                         item.description.toLowerCase().includes(searchTerm.toLowerCase());
-    return matchesCategory && matchesSearch;
-  });
+  const filteredItems = activeCategory === 'all' 
+    ? menuItems 
+    : menuItems.filter(item => item.category === activeCategory);
 
   return (
     <div className="min-h-screen bg-black">
@@ -95,30 +90,21 @@ const MenuPage = () => {
       {/* Hero Section */}
       <section className="pt-24 pb-12 bg-gradient-to-b from-gray-900 to-black">
         <div className="container-custom px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
+          <div className="text-center">
             <h1 className="text-4xl lg:text-6xl font-bold font-orbitron mb-6">
-              <span className="text-gradient">Menu Futuriste</span>
+              Menu <span className="text-gradient">Futuriste</span>
             </h1>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Découvrez nos créations culinaires où l'art traditionnel algérien rencontre l'innovation du futur
+              Découvrez notre sélection de créations culinaires où tradition algérienne et innovation se rencontrent
             </p>
           </div>
+        </div>
+      </section>
 
-          {/* Search */}
-          <div className="max-w-md mx-auto mb-8">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-              <input
-                type="text"
-                placeholder="Rechercher un plat..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 bg-gray-800/50 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-jarmie-cyan-500 transition-colors"
-              />
-            </div>
-          </div>
-
-          {/* Category Filters */}
+      {/* Menu Section */}
+      <section className="section-padding bg-black">
+        <div className="container-custom">
+          {/* Category Filter */}
           <div className="flex flex-wrap justify-center gap-4 mb-12">
             {categories.map((category) => (
               <button
@@ -126,7 +112,7 @@ const MenuPage = () => {
                 onClick={() => setActiveCategory(category.id)}
                 className={`px-6 py-3 rounded-full font-medium transition-all duration-300 ${
                   activeCategory === category.id
-                    ? 'bg-jarmie-cyan-500 text-black shadow-lg glow-effect'
+                    ? 'bg-jarmie-cyan-500 text-black shadow-lg'
                     : 'bg-gray-800/50 text-gray-300 hover:bg-gray-700/50 hover:text-white border border-gray-700'
                 }`}
               >
@@ -135,18 +121,13 @@ const MenuPage = () => {
               </button>
             ))}
           </div>
-        </div>
-      </section>
 
-      {/* Menu Items */}
-      <section className="section-padding bg-black">
-        <div className="container-custom">
+          {/* Menu Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredItems.map((item, index) => (
+            {filteredItems.map((item) => (
               <div
                 key={item.id}
-                className="glass-card overflow-hidden hover:scale-105 transition-all duration-500 glow-effect animate-fade-in"
-                style={{ animationDelay: `${index * 0.1}s` }}
+                className="glass-card overflow-hidden hover:scale-105 transition-all duration-500"
               >
                 {/* Image */}
                 <div className="relative h-48 overflow-hidden">
@@ -181,7 +162,7 @@ const MenuPage = () => {
                     <span className="text-2xl font-bold text-gradient">
                       {item.price}
                     </span>
-                    <Button size="sm" className="bg-jarmie-cyan-500 hover:bg-jarmie-cyan-600 text-black">
+                    <Button className="bg-jarmie-cyan-500 hover:bg-jarmie-cyan-600 text-black">
                       Commander
                     </Button>
                   </div>
@@ -189,12 +170,6 @@ const MenuPage = () => {
               </div>
             ))}
           </div>
-
-          {filteredItems.length === 0 && (
-            <div className="text-center py-12">
-              <p className="text-gray-400 text-xl">Aucun plat trouvé pour votre recherche.</p>
-            </div>
-          )}
         </div>
       </section>
 
